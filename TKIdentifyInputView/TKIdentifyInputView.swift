@@ -55,13 +55,6 @@ open class TKIdentifyInputView: UIView {
         return textField
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(frame: self.bounds)
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.axis = .horizontal
-        return stackView
-    }()
     private lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
