@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TKIdentifyInputView"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "An input view for vertify code, tel. and etc."
 
   # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-  An input view for vertify code, tel. and etc.
+  DESC: An input view for vertify code, tel. and etc.
                    DESC
 
   s.homepage     = "https://github.com/TongKai/TKIdentifyInputView"
