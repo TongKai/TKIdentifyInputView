@@ -42,6 +42,7 @@ class IdentifyViewController: UIViewController {
             make.right.equalTo(-30)
             make.bottom.equalTo(sSelf.btn.snp.top).offset(-50)
         }
+        // 设置layout或者itemConfig后请调用此方法
         input.reload()
         input.textDidChangeBlock = {text, finished in
             print("text = \(text), finished = \(finished), text = \(input.textValue)")
