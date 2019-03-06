@@ -18,7 +18,7 @@ pod 'TKIdentifyInputView'
 ### 手动安装
 把TKIdentifyInputView文件夹拖到工程中
 
-### 使用方式
+## 使用方式
 
 ```
  let input = TKIdentifyInputView.init(frame: .zero)
@@ -32,13 +32,16 @@ pod 'TKIdentifyInputView'
 ```
 详情看Demo
 
-### 样式
+## 样式
 | 类型  | 示例图片 |
 | :-------------: | :-------------: |
-| 下划线/underline |                 |
-| 边框/border      |                 |
-| 背景圆角/background&corner |                 |
-| 光标/cursor      |                 |
-| 密文/security   |                 |
-| 自定义密文/custom security |                 |
-| 自定义大小，字体，字体大小/item size&font&text color |                 | 
+| 下划线/underline |  ![underline](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/underline.png)               |
+| 边框/border      |  ![border](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/border.png)               |
+| 背景圆角/background&corner |  ![background](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/background.png)               |
+| 光标/cursor      | ![cursor](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/cursor.png)                |
+| 密文/security   | ![security](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/security.png)                |
+| 自定义密文/custom security | ![custom_security](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/custom_security.png)                |
+| 自定义大小，字体，字体大小/item size&font&text color | ![custom](https://github.com/TongKai/TKIdentifyInputView/blob/master/imgs/custom.png)                | 
+
+## 参考与感谢
+[CRBoxInputView](https://github.com/CRAnimation/CRBoxInputView)
