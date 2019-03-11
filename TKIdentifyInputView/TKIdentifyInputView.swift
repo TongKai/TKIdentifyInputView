@@ -23,17 +23,20 @@ open class TKIdentifyInputView: UIView {
         }
     } // set the keyboardType
     
-//    open var ifNeedAutoFill: Bool = true {
-//        didSet {
-//            if #available(iOS 12.0, *), ifNeedAutoFill {
-//
-//                self.textField.textContentType = UITextContentType.oneTimeCode
-//            }
-//            else {
-//                self.textField.textContentType = nil
-//            }
-//        }
-//    }
+    //  自动填充验证码，oneTimeCode是12之后才支持
+    open var supportAutoFill: Bool = true {
+        didSet {
+            guard #available(iOS 12.0, *) else {
+                return
+            }
+            if supportAutoFill {
+                self.textField.textContentType = UITextContentType.oneTimeCode
+            }
+            else {
+                self.textField.textContentType = nil
+            }
+        }
+    }
     
     open var textDidChangeBlock: TKInputViewTextDidChangeBlock? // content change callback
     open var itemConfig: TKIdentifyInputItemConfig? // the config, aftet set it should call reload()
@@ -83,7 +86,6 @@ open class TKIdentifyInputView: UIView {
         
         self.textField.frame = self.bounds
         self.addSubview(self.textField)
-        
     }
     
     private func beginEdit() {
@@ -185,42 +187,53 @@ extension TKIdentifyInputView {
         guard let textFieldText = textField.text else {
             return
         }
-        var str = textFieldText.filter { character in
+        let str = textFieldText.filter { character in
             character != " "
         }
-        if str.count > self.itemCount {
-            let idx = str.index(str.startIndex, offsetBy: self.itemCount)
-            str = String(str[str.startIndex..<idx])
+
+        self.text = str
+        if self.text.count > self.itemCount {
+            self.text = cut(string: self.text, onLength: self.itemCount)
         }
         
-        if self.oldLength > str.count {
-            let _ = self.text.popLast()
-            
-            guard let item = self.item(withIndex: self.text.count) else {
+        if self.oldLength > self.text.count {
+        
+            guard let item = self.item(withIndex: self.oldLength - 1) else {
                 return
             }
             item.clear()
             self.selectItem(withItem: item)
         }
-        else if self.text.count < itemCount {
-            self.text.append(str.last!)
-            guard let item = self.item(withIndex: self.text.count - 1) else {
-                return
-            }
-            item.setText(text: String(str.last!))
-            item.selected = false
+        else if self.text.count <= itemCount {
             
+            for i in 0 ..< self.text.count {
+                guard let item = self.item(withIndex: i) else {
+                    return
+                }
+                if !item.isEmpty {
+                    continue
+                }
+                let idx = self.text.index(self.text.startIndex, offsetBy: i)
+                item.setText(text: String(self.text[idx]))
+                item.selected = false
+            }
+           
             if self.text.count == itemCount {
-                textField.resignFirstResponder()
+                self.endEdit()
             }
             else if let nextItem = self.item(withIndex: self.text.count) {
                 nextItem.selected = true
                 self.selectItem(withItem: nextItem)
             }
         }
-        textField.text = str
-        self.oldLength = str.count
+        textField.text = self.text
+        self.oldLength = self.text.count
         self.triggerBlock()
+    }
+    
+    private func cut(string str: String, onLength length: Int) -> String {
+        let idx = str.index(str.startIndex, offsetBy: length)
+        return String(str[str.startIndex..<idx])
     }
 }
 

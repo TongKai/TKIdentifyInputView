@@ -16,7 +16,11 @@ final class TKIdentifyInputItem: UIView {
             self.refreshSetlectedState()
         }
     }
-    
+    public var isEmpty: Bool {
+        get {
+            return self.textValue.isEmpty
+        }
+    }
     private var securityView: UIView? = nil
     private lazy var cursorAnimation: CABasicAnimation = {
         let animation = CABasicAnimation(keyPath: "opacity")
