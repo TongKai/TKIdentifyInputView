@@ -83,6 +83,12 @@ open class TKIdentifyInputView: UIView {
         self.reload()
     }
     
+    open func endEdit() {
+        if self.textField.canResignFirstResponder {
+            self.textField.resignFirstResponder()
+        }
+    }
+    
     private func setup() {
         self.contentView.frame = self.bounds
         self.addSubview(self.contentView)
@@ -94,12 +100,6 @@ open class TKIdentifyInputView: UIView {
     private func beginEdit() {
         if self.textField.canBecomeFirstResponder {
             self.textField.becomeFirstResponder()
-        }
-    }
-    
-    private func endEdit() {
-        if self.textField.canResignFirstResponder {
-            self.textField.resignFirstResponder()
         }
     }
 
