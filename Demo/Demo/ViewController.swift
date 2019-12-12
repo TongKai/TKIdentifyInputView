@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         let vc = IdentifyViewController()
         let input = TKIdentifyInputView.init(frame: .zero)
         input.itemCount = 6
+        input.keyboardType = .default
         input.itemConfig = TKIdentifyInputItemConfig()
         let w = input.itemConfig!.itemSize.width
         input.itemConfig?.underlineSize = CGSize(width: w, height: 2)

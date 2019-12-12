@@ -15,6 +15,7 @@ fileprivate class DisablePastTextField: UITextField {
 }
 
 public typealias TKInputViewTextDidChangeBlock = (String, Bool) -> Void
+public typealias TKInputViewOnReturnKeyBlock = (String, Bool) -> Void
 open class TKIdentifyInputView: UIView {
     
     open var keyboardType: UIKeyboardType = UIKeyboardType.numberPad {
@@ -44,6 +45,8 @@ open class TKIdentifyInputView: UIView {
         return self.text
     } // current input content
     open var itemCount: Int = 4 // number of item, aftet set it should call reload()
+    open var endEditOnReturn: Bool = true
+    open var onReturnKeyBlock: TKInputViewOnReturnKeyBlock? // keyboard return key callback
     
     private lazy var textField: DisablePastTextField = {
         let textField = DisablePastTextField()
@@ -169,16 +172,16 @@ open class TKIdentifyInputView: UIView {
 }
 
 extension TKIdentifyInputView: UITextFieldDelegate {
-    private func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let textFieldText = textField.text else {
-            return
-        }
-        if textFieldText.count != self.itemCount {
-            self.beginEdit()
-        }
-        else {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if self.endEditOnReturn {
             self.endEdit()
         }
+        guard let block = self.onReturnKeyBlock else {
+            return true
+        }
+        block(self.text, self.text.count == self.itemCount)
+        return true;
     }
 }
 
